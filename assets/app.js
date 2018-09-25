@@ -23,16 +23,18 @@ $(document).ready(function(){
     var frequecy = $("#frequency-input").val();
 
     // On click Handler for the submit button
-    
-    $(".submit-button").on('click', function(event){
-        event.preventdefault();
 
-        if (trainname === '' & destination === '' & firsttraintime === '' & frequecy === '') {
+    $(".submit-button").on('click', function(event){
+        
+
+        if (trainname === '' || destination === '' || firsttraintime === '' || frequecy === '') {
             console.log("Please Don't Do That.");
-            return false;
+            return false;  
         }
         else {
+            event.preventdefault();
             addtrain();
+            console.log("Train added!");
         }
     })
 
