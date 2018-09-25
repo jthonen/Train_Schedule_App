@@ -26,7 +26,6 @@ $(document).ready(function(){
 
     $(".submit-button").on('click', function(event){
         
-
         if (trainname === '' || destination === '' || firsttraintime === '' || frequecy === '') {
             console.log("Please Don't Do That.");
             return false;  
@@ -36,7 +35,7 @@ $(document).ready(function(){
             addtrain();
             console.log("Train added!");
         }
-    })
+    });
 
     // Add Train function with variables to grab the data and put into a table format. then append to the tablebody div.
 
@@ -56,5 +55,5 @@ $(document).ready(function(){
 
         $(".train-table").append(table);
 
-    }
+    };
 })
