@@ -25,20 +25,20 @@
         <table class="table table-striped table-dark">
             <thead>
                 <tr>
-                <th scope="col">Train Number</th>
                 <th scope="col">Train Name</th>
+                <th scope="col">Destination</th>
                 <th scope="col">Frequency (min)</th>
                 <th scope="col">Next Arival</th>
                 <th scope="col">Minutes Away</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="train-table">
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>placeholder</td>
+                    <th scope="row">polar express</th>
+                    <td>north pole</td>
+                    <td>15</td>
+                    <td>12:00</td>
+                    <td>5</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
@@ -71,25 +71,45 @@
         <form>
             <div class="form-group">
                 <label for="formGroupExampleInput">Train Name</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+                <input type="text" class="form-control" id="train-name-input" placeholder="">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">Destination</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+                <input type="text" class="form-control" id="destination-name-input" placeholder="">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput">First Train Time (HH:MM - 24 hour clock)</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+                <input type="text" class="form-control" id="first-train-time-input" placeholder="">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">Frequency (Min)</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+            <input type="text" class="form-control" id="frequency-input" placeholder="">
             <br>
-            <input class="btn btn-primary btn-dark" type="submit" value="Submit">
+            <input class="btn btn-primary btn-dark submit-button" type="submit" value="Submit">
         </div>
         </form>
 
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    
+    <script>
+        
+      // Initialize Firebase
+
+      // Firebase Address -
+      // https://console.firebase.google.com/u/0/project/trainschedule-4dd32/overview
+
+      var config = {
+        apiKey: "AIzaSyDfHIXAWt9Wjew2sOyz4Tf03kludlj20_U",
+        authDomain: "trainschedule-4dd32.firebaseapp.com",
+        databaseURL: "https://trainschedule-4dd32.firebaseio.com",
+        projectId: "trainschedule-4dd32",
+        storageBucket: "",
+        messagingSenderId: "390190264947"
+      };
+      firebase.initializeApp(config);
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
