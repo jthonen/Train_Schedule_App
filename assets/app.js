@@ -1,5 +1,37 @@
 $(document).ready(function(){
    
+
+    //sandbox
+    var currenttime = moment().format('HH:mm');
+    console.log('Current Military Time Is: ' + currenttime);
+
+    var time1 = moment().format('LT');
+    console.log('Current Time Is: ' + time1);
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Initialize Firebase
 
     // Firebase Address -
@@ -14,6 +46,26 @@ $(document).ready(function(){
         messagingSenderId: "390190264947"
     };
     firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    database.ref().on("value", function(snapshot){
+
+        var trainname = $("#train-name-input").val();
+        var destination = $("#destiantion-name-input").val();
+        var firsttraintime = $("#first-train-time-input").val();
+        var frequecy = $("#frequency-input").val();
+        var nextarrival = moment(firsttraintime).from()
+        
+        
+        
+        
+        
+        
+        console.log(snapshot);
+
+        
+    })
       
     // On click Handler for the submit button
 
