@@ -2,16 +2,25 @@ $(document).ready(function(){
    
 
     //sandbox
+    var tfrequency = 7;
     var currenttime = moment().format('HH:mm');
     console.log('Current Military Time Is: ' + currenttime);
 
-    var time1 = moment().format('LT');
-    console.log('Current Time Is: ' + time1);
+    var firsttime = '03:30';
+    var firsttimeconverted = moment(firsttime, "HH:mm").subtract(1, "years");
+        console.log(firsttimeconverted);
+    var difftime = moment().diff(moment(firsttimeconverted), 'minutes');
+        console.log(difftime);
+    var tremainder = difftime % tfrequency;
+        console.log(tremainder);
+    var minutestilltrain = tfrequency - tremainder;
+        console.log(minutestilltrain);
+    var nexttrain = moment().add(minutestilltrain, "minutes");
+        console.log(nexttrain);
 
-    var frequency = 7;
-
-    var nextarival = '';
-
+        function traintime(){
+            var tFirstTime = $("#")
+        }
     
     
      // Assumptions
@@ -129,7 +138,7 @@ $(document).ready(function(){
         var frequency = $("#frequency-input").val();
         var nextarrival = '';
         var minutesaway = '';
-        var table = $("<tr><th scope='row'>" + trainname + "</th><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextarrival + "</td><td>" + minutesaway + "</td></tr>");
+        var table = $("<tr><th scope='row'>" + trainname + "</th><td>" + destination + "</td><td>" + frequency + "</td><td class='nunextarrival' >" + nextarrival + "</td><td class='numinutesaway' >" + minutesaway + "</td></tr>");
         console.log(table);
         $(".train-table").append(table);
 
