@@ -138,7 +138,13 @@ $(document).ready(function(){
         var frequency = $("#frequency-input").val();
         var nextarrival = '';
         var minutesaway = '';
-        var table = $("<tr><th scope='row'>" + trainname + "</th><td>" + destination + "</td><td>" + frequency + "</td><td class='nunextarrival' >" + nextarrival + "</td><td class='numinutesaway' >" + minutesaway + "</td></tr>");
+        var table = $("<tr><th scope='row'>" + 
+                        trainname + "</th><td>" + 
+                        destination + "</td><td>" + 
+                        frequency + "</td><td class='nunextarrival' >" + 
+                        nextarrival + "</td><td class='numinutesaway' >" + 
+                        minutesaway + "</td></tr>");
+
         console.log(table);
         $(".train-table").append(table);
 
