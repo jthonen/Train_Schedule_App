@@ -14,27 +14,30 @@ $(document).ready(function(){
         messagingSenderId: "390190264947"
     };
     firebase.initializeApp(config);
-    
-    // Variables for holding train information
-
-    var trainname = $("#train-name-input").val();
-    var destination = $("#destiantion-name-input").val();
-    var firsttraintime = $("#first-train-time-input").val();
-    var frequecy = $("#frequency-input").val();
-
+      
     // On click Handler for the submit button
 
     $(".submit-button").on('click', function(event){
-        
+
+        // Variables for holding train information
+
+        var trainname = $("#train-name-input").val();
+        var destination = $("#destiantion-name-input").val();
+        var firsttraintime = $("#first-train-time-input").val();
+        var frequecy = $("#frequency-input").val();
+
+        //Conditional for preventing blank submit
+
         if (trainname === '' || destination === '' || firsttraintime === '' || frequecy === '') {
             console.log("Please Don't Do That.");
             return false;  
         }
         else {
-            event.preventdefault();
+            event.preventDefault();             
             addtrain();
-            console.log("Train added!");
+            console.log("Train Added!");
         }
+
     });
 
     // Add Train function with variables to grab the data and put into a table format. then append to the tablebody div.
@@ -44,15 +47,11 @@ $(document).ready(function(){
         var trainname = $("#train-name-input").val();
         var destination = $("#destiantion-name-input").val();
         var firsttraintime = $("#first-train-time-input").val();
-        var frequecy = $("#frequency-input").val();
+        var frequency = $("#frequency-input").val();
         var nextarrival = '';
         var minutesaway = '';
-        var tableconsole = trainname | destination | firsttraintime | frequecy | nextarrival | minutesaway;
-        
-        console.log(tableconsole);
-
         var table = $("<tr><th scope='row'>" + trainname + "</th><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextarrival + "</td><td>" + minutesaway + "</td></tr>");
-
+        console.log(table);
         $(".train-table").append(table);
 
     };
