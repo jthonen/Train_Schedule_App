@@ -8,9 +8,41 @@ $(document).ready(function(){
     var time1 = moment().format('LT');
     console.log('Current Time Is: ' + time1);
 
+    var frequency = 7;
+
+    var nextarival = '';
+
     
     
-    
+     // Assumptions
+     var tFrequency = 3;
+
+     // Time is 3:30 AM
+     var firstTime = "03:30";
+ 
+     // First Time (pushed back 1 year to make sure it comes before current time)
+     var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+     console.log(firstTimeConverted);
+ 
+     // Current Time
+     var currentTime = moment();
+     console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+ 
+     // Difference between the times
+     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+     console.log("DIFFERENCE IN TIME: " + diffTime);
+ 
+     // Time apart (remainder)
+     var tRemainder = diffTime % tFrequency;
+     console.log(tRemainder);
+ 
+     // Minute Until Train
+     var tMinutesTillTrain = tFrequency - tRemainder;
+     console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+ 
+     // Next Train
+     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
     
     
     
@@ -56,15 +88,9 @@ $(document).ready(function(){
         var firsttraintime = $("#first-train-time-input").val();
         var frequecy = $("#frequency-input").val();
         var nextarrival = moment(firsttraintime).from()
-        
-        
-        
-        
-        
-        
+
         console.log(snapshot);
 
-        
     })
       
     // On click Handler for the submit button
@@ -74,7 +100,7 @@ $(document).ready(function(){
         // Variables for holding train information
 
         var trainname = $("#train-name-input").val();
-        var destination = $("#destiantion-name-input").val();
+        var destination = $("#destination-name-input").val();
         var firsttraintime = $("#first-train-time-input").val();
         var frequecy = $("#frequency-input").val();
 
@@ -87,6 +113,7 @@ $(document).ready(function(){
         else {
             event.preventDefault();             
             addtrain();
+            clearform();
             console.log("Train Added!");
         }
 
@@ -97,7 +124,7 @@ $(document).ready(function(){
     function addtrain(){
 
         var trainname = $("#train-name-input").val();
-        var destination = $("#destiantion-name-input").val();
+        var destination = $("#destination-name-input").val();
         var firsttraintime = $("#first-train-time-input").val();
         var frequency = $("#frequency-input").val();
         var nextarrival = '';
@@ -107,4 +134,14 @@ $(document).ready(function(){
         $(".train-table").append(table);
 
     };
+
+    function clearform(){
+
+        $("#train-name-input").val('');
+        $("#destination-name-input").val('');
+        $("#first-train-time-input").val('');
+        $("#frequency-input").val('');
+
+    }
+
 })
