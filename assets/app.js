@@ -101,7 +101,7 @@ $(document).ready(function(){
         console.log(snapshot);
 
     })
-      
+    var trainsarray = [];
     // On click Handler for the submit button
 
     $(".submit-button").on('click', function(event){
@@ -111,21 +111,25 @@ $(document).ready(function(){
         var trainname = $("#train-name-input").val();
         var destination = $("#destination-name-input").val();
         var firsttraintime = $("#first-train-time-input").val();
-        var frequecy = $("#frequency-input").val();
+        var frequency = $("#frequency-input").val();
 
         //Conditional for preventing blank submit
 
-        if (trainname === '' || destination === '' || firsttraintime === '' || frequecy === '') {
+        if (trainname === '' || destination === '' || firsttraintime === '' || frequency === '') {
             console.log("Please Don't Do That.");
             return false;  
         }
         else {
-            event.preventDefault();             
-            addtrain();
+            event.preventDefault();  
+            var newtrain = {Name: trainname,Destination: destination, FirsttrainTime: firsttraintime, Frequency: frequency};
+            console.log(newtrain)
+            trainsarray.push(newtrain);
+            console.log(trainsarray)
+           // addtrain();
             clearform();
             console.log("Train Added!");
         }
-
+        
     });
 
     // Add Train function with variables to grab the data and put into a table format. then append to the tablebody div.
