@@ -89,14 +89,12 @@ $(document).ready(function(){
     firebase.initializeApp(config);
 
     var database = firebase.database();
-
-    
-
-    
+  
     database.ref().on('value', function(snapshot) {
         console.log(snapshot.val(), 'this is what is in the database');
         console.log(Object.values(snapshot.val()), 'this is an array of objects');
         var objectval = Object.values(snapshot.val());
+        $('.train-table').empty();
          
         for (i = 0 ; i < objectval.length ; i++ ) {
             var trainname = objectval[i].Name;
@@ -113,14 +111,15 @@ $(document).ready(function(){
                             minutesaway + "</td></tr>");
             $(".train-table").append(table);
         }
-        
     })
 
 
     // On click Handler for the submit button
 
     $(".submit-button").on('click', function(event){
+        
         event.preventDefault();
+
         // Variables for holding train information
 
         var trainname = $("#train-name-input").val();
@@ -155,7 +154,6 @@ $(document).ready(function(){
         $("#destination-name-input").val('');
         $("#first-train-time-input").val('');
         $("#frequency-input").val('');
-        $('.train-table').remove();
 
     }
 
