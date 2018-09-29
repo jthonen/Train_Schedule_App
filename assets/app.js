@@ -1,57 +1,57 @@
 $(document).ready(function(){
    
 
-    //sandbox
-    var tfrequency = 7;
-    var currenttime = moment().format('HH:mm');
-    console.log('Current Military Time Is: ' + currenttime);
+    // //sandbox
+    // var tfrequency = 7;
+    // var currenttime = moment().format('HH:mm');
+    // console.log('Current Military Time Is: ' + currenttime);
 
-    var firsttime = '03:30';
-    var firsttimeconverted = moment(firsttime, "HH:mm").subtract(1, "years");
-        console.log(firsttimeconverted);
-    var difftime = moment().diff(moment(firsttimeconverted), 'minutes');
-        console.log(difftime);
-    var tremainder = difftime % tfrequency;
-        console.log(tremainder);
-    var minutestilltrain = tfrequency - tremainder;
-        console.log(minutestilltrain);
-    var nexttrain = moment().add(minutestilltrain, "minutes");
-        console.log(nexttrain);
+    // var firsttime = '03:30';
+    // var firsttimeconverted = moment(firsttime, "HH:mm").subtract(1, "years");
+    //     console.log(firsttimeconverted);
+    // var difftime = moment().diff(moment(firsttimeconverted), 'minutes');
+    //     console.log(difftime);
+    // var tremainder = difftime % tfrequency;
+    //     console.log(tremainder);
+    // var minutestilltrain = tfrequency - tremainder;
+    //     console.log(minutestilltrain);
+    // var nexttrain = moment().add(minutestilltrain, "minutes");
+    //     console.log(nexttrain);
 
-        function traintime(){
-            var tFirstTime = $("#")
-        }
+    //     function traintime(){
+    //         var tFirstTime = $("#")
+    //     }
     
     
-     // Assumptions
-     var tFrequency = 3;
+    //  // Assumptions
+    //  var tFrequency = 3;
 
-     // Time is 3:30 AM
-     var firstTime = "03:30";
+    //  // Time is 3:30 AM
+    //  var firstTime = "03:30";
  
-     // First Time (pushed back 1 year to make sure it comes before current time)
-     var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-     console.log(firstTimeConverted);
+    //  // First Time (pushed back 1 year to make sure it comes before current time)
+    //  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    //  console.log(firstTimeConverted);
  
-     // Current Time
-     var currentTime = moment();
-     console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    //  // Current Time
+    //  var currentTime = moment();
+    //  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
  
-     // Difference between the times
-     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-     console.log("DIFFERENCE IN TIME: " + diffTime);
+    //  // Difference between the times
+    //  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    //  console.log("DIFFERENCE IN TIME: " + diffTime);
  
-     // Time apart (remainder)
-     var tRemainder = diffTime % tFrequency;
-     console.log(tRemainder);
+    //  // Time apart (remainder)
+    //  var tRemainder = diffTime % tFrequency;
+    //  console.log(tRemainder);
  
-     // Minute Until Train
-     var tMinutesTillTrain = tFrequency - tRemainder;
-     console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+    //  // Minute Until Train
+    //  var tMinutesTillTrain = tFrequency - tRemainder;
+    //  console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
  
-     // Next Train
-     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    //  // Next Train
+    //  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    //  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
     
     
     
@@ -91,17 +91,30 @@ $(document).ready(function(){
     var database = firebase.database();
 
     database.ref().on("value", function(snapshot){
-
-        var trainname = $("#train-name-input").val();
-        var destination = $("#destiantion-name-input").val();
-        var firsttraintime = $("#first-train-time-input").val();
-        var frequecy = $("#frequency-input").val();
-        var nextarrival = moment(firsttraintime).from()
-
         console.log(snapshot);
 
+        if (snapshot.child("trainarray").exists) {
+            console.log(snapshot.val());
+            var sv = snapshot.val();
+            console.log(sv.length);
+
+            for ( i = 0; i < sv.length ; i++ ){
+                console.log(sv.length);
+            }
+            
+
+        }
+
+        // var trainname = $("#train-name-input").val();
+        // var destination = $("#destiantion-name-input").val();
+        // var firsttraintime = $("#first-train-time-input").val();
+        // var frequecy = $("#frequency-input").val();
+        // var nextarrival = moment(firsttraintime).from()
+
+        // console.log(snapshot);
+
     })
-    var trainsarray = [];
+    
     // On click Handler for the submit button
 
     $(".submit-button").on('click', function(event){
@@ -112,6 +125,7 @@ $(document).ready(function(){
         var destination = $("#destination-name-input").val();
         var firsttraintime = $("#first-train-time-input").val();
         var frequency = $("#frequency-input").val();
+        var trainsarray = [];
 
         //Conditional for preventing blank submit
 
@@ -121,11 +135,18 @@ $(document).ready(function(){
         }
         else {
             event.preventDefault();  
-            var newtrain = {Name: trainname,Destination: destination, FirsttrainTime: firsttraintime, Frequency: frequency};
+            var newtrain = {Name: trainname, 
+                            Destination: destination, 
+                            FirsttrainTime: firsttraintime, 
+                            Frequency: frequency, 
+                            dateAddeed: firebase.database.ServerValue.TIMESTAMP
+                            };
+
             console.log(newtrain)
             trainsarray.push(newtrain);
             console.log(trainsarray)
-           // addtrain();
+            database.ref().push(trainsarray);
+            //addtrain();
             clearform();
             console.log("Train Added!");
         }
@@ -134,25 +155,36 @@ $(document).ready(function(){
 
     // Add Train function with variables to grab the data and put into a table format. then append to the tablebody div.
 
-    function addtrain(){
+    // function addtrain(){
 
-        var trainname = $("#train-name-input").val();
-        var destination = $("#destination-name-input").val();
-        var firsttraintime = $("#first-train-time-input").val();
-        var frequency = $("#frequency-input").val();
-        var nextarrival = '';
-        var minutesaway = '';
-        var table = $("<tr><th scope='row'>" + 
-                        trainname + "</th><td>" + 
-                        destination + "</td><td>" + 
-                        frequency + "</td><td class='nunextarrival' >" + 
-                        nextarrival + "</td><td class='numinutesaway' >" + 
-                        minutesaway + "</td></tr>");
+    //     // database.ref().on("value", function(snapshot) {
+    //     //     console.log(snapshot);
+    //     //     console.log(snapshot.trainsarray);
 
-        console.log(table);
-        $(".train-table").append(table);
+    //     //     for ( i = 0 ; i < snapshot.val().trainsarray.length ; i++ ) {
 
-    };
+    //     //     }
+    //     // })
+
+    //     var trainname = $("#")
+    //     var destination = $("#destination-name-input").val();
+    //     var firsttraintime = $("#first-train-time-input").val();
+    //     var frequency = $("#frequency-input").val();
+    //     var nextarrival = '';
+    //     var minutesaway = '';
+    //     var table = $("<tr><th scope='row'>" + 
+    //                     trainname + "</th><td>" + 
+    //                     destination + "</td><td>" + 
+    //                     frequency + "</td><td class='nunextarrival' >" + 
+    //                     nextarrival + "</td><td class='numinutesaway' >" + 
+    //                     minutesaway + "</td></tr>");
+
+    //     console.log(table);
+    //     //$(".train-table").append(table);
+        
+
+    // };
+
 
     function clearform(){
 
