@@ -90,28 +90,24 @@ $(document).ready(function(){
 
     var database = firebase.database();
 
-    database.ref().on("value", function(snapshot){
-        console.log(snapshot);
+    database.ref().on("child_added", function(childSnapshot){
+        console.log(childSnapshot.val());
+        console.log(childSnapshot.val().Destination);
+        
 
-        if (snapshot.child("trainarray").exists) {
-            console.log(snapshot.val());
-            var sv = snapshot.val();
-            console.log(sv.length);
 
-            for ( i = 0; i < sv.length ; i++ ){
-                console.log(sv.length);
-            }
-            
-
-        }
-
-        // var trainname = $("#train-name-input").val();
-        // var destination = $("#destiantion-name-input").val();
+        // var trainname = $("#")
+        // var destination = childSnapshot.val().destination;
         // var firsttraintime = $("#first-train-time-input").val();
-        // var frequecy = $("#frequency-input").val();
-        // var nextarrival = moment(firsttraintime).from()
-
-        // console.log(snapshot);
+        // var frequency = $("#frequency-input").val();
+        // var nextarrival = '';
+        // var minutesaway = '';
+        // var table = $("<tr><th scope='row'>" + 
+        //                 trainname + "</th><td>" + 
+        //                 destination + "</td><td>" + 
+        //                 frequency + "</td><td class='nunextarrival' >" + 
+        //                 nextarrival + "</td><td class='numinutesaway' >" + 
+        //                 minutesaway + "</td></tr>");
 
     })
     
@@ -145,7 +141,7 @@ $(document).ready(function(){
             console.log(newtrain)
             trainsarray.push(newtrain);
             console.log(trainsarray)
-            database.ref().push(trainsarray);
+            database.ref().push(newtrain);
             //addtrain();
             clearform();
             console.log("Train Added!");
