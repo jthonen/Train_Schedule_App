@@ -1,26 +1,5 @@
 $(document).ready(function(){
-   
-
-    //sandbox
-    var tfrequency = 7;
-    var currenttime = moment().format('HH:mm');
-    console.log('Current Military Time Is: ' + currenttime);
-
-    var firsttime = '03:30';
-    var firsttimeconverted = moment(firsttime, "HH:mm").subtract(1, "years");
-        console.log(firsttimeconverted);
-    var difftime = moment().diff(moment(firsttimeconverted), 'minutes');
-        console.log(difftime);
-    var tremainder = difftime % tfrequency;
-        console.log(tremainder);
-    var minutestilltrain = tfrequency - tremainder;
-        console.log(minutestilltrain);
-    var nexttrain = moment().add(minutestilltrain, "minutes");
-        console.log(nexttrain);
-
-
-      
- 
+    
     // Initialize Firebase
 
     // Firebase Address -
@@ -48,14 +27,14 @@ $(document).ready(function(){
             var destination = objectval[i].Destination;
             var frequency = objectval[i].Frequency;
             var firsttraintime = objectval[i].FirsttrainTime;
-
+    
             var firsttimeconverted = moment(firsttraintime, "HH:mm").subtract(1, "years");
-            var currenttime = moment();
-            var difftime = moment().diff(moment(firsttimeconverted), 'minutes');
-            var tremainder = difftime % frequency;
-            var nextarrival = moment().add(minutestilltrain, "minutes");
+            var difftime = moment().diff(moment(firsttimeconverted), 'minutes');            
+            var tremainder = difftime % frequency;        
             var minutesaway = frequency - tremainder;
-
+            var nextarrival = moment().add(minutesaway, "minutes").format("hh:mm")
+            console.log(nextarrival);
+            
 
             var table = $("<tr><th scope='row'>" + 
                             trainname + "</th><td>" + 
